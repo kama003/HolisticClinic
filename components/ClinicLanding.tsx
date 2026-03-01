@@ -83,15 +83,15 @@ export default function ClinicLanding() {
     <div className="min-h-screen pb-20 bg-[#f2f2f2] dark:bg-[#1a1c1a] transition-colors duration-300 overflow-x-hidden">
       <div className="text-[#2c3e2c] dark:text-[#e0e8e0]">
         {/* Navbar */}
-        <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-8">
-          <div className="max-w-7xl mx-auto flex items-center justify-between bg-[#f2f2f2] dark:bg-[#1a1c1a]/40 backdrop-blur-xl rounded-full px-8 py-3 neumorphic-button border border-white/20">
+        <nav className="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 py-4 md:py-8">
+          <div className="max-w-7xl mx-auto flex items-center justify-between bg-[#f2f2f2] dark:bg-[#1a1c1a]/40 backdrop-blur-xl rounded-full px-4 md:px-8 py-2 md:py-3 neumorphic-button border border-white/20">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-[#6b8e6b] rounded-lg flex items-center justify-center text-white shadow-lg shadow-[#6b8e6b]/30">
-                <Leaf size={24} />
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-[#6b8e6b] rounded-lg flex items-center justify-center text-white shadow-lg shadow-[#6b8e6b]/30">
+                <Leaf className="w-4 h-4 md:w-6 md:h-6" />
               </div>
               <div>
-                <h1 className="font-bold text-sm leading-tight text-[#2c3e2c] dark:text-[#e0e8e0]">Chandigarh</h1>
-                <p className="text-[10px] opacity-60 text-[#2c3e2c] dark:text-[#e0e8e0]">holistic clinic</p>
+                <h1 className="font-bold text-[10px] md:text-sm leading-tight text-[#2c3e2c] dark:text-[#e0e8e0]">Chandigarh</h1>
+                <p className="text-[8px] md:text-[10px] opacity-60 text-[#2c3e2c] dark:text-[#e0e8e0]">holistic clinic</p>
               </div>
             </div>
 
@@ -112,7 +112,7 @@ export default function ClinicLanding() {
               </button>
               <button
                 onClick={() => setShowAuthModal(true)}
-                className="px-4 py-2 md:px-6 md:py-2 rounded-full neumorphic-button text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-[#2c3e2c] dark:text-[#e0e8e0] whitespace-nowrap"
+                className="hidden sm:block px-4 py-2 md:px-6 md:py-2 rounded-full neumorphic-button text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-[#2c3e2c] dark:text-[#e0e8e0] whitespace-nowrap"
               >
                 Log In | Sign Up
               </button>
@@ -138,6 +138,15 @@ export default function ClinicLanding() {
                 <a href="#diseases" onClick={() => setIsMobileMenuOpen(false)} className="opacity-80 hover:opacity-100 transition-opacity">Diseases</a>
                 <a href="#testimonials" onClick={() => setIsMobileMenuOpen(false)} className="opacity-80 hover:opacity-100 transition-opacity">Testimonials</a>
                 <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="opacity-80 hover:opacity-100 transition-opacity">Contact Us</a>
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setShowAuthModal(true);
+                  }}
+                  className="sm:hidden w-full py-3 rounded-full neumorphic-button text-[10px] font-bold uppercase tracking-widest text-[#2c3e2c] dark:text-[#e0e8e0]"
+                >
+                  Log In | Sign Up
+                </button>
               </motion.div>
             )}
           </AnimatePresence>
