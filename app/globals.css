@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
 
 @theme {
   --color-sage: #6b8e6b;
@@ -6,29 +8,41 @@
   --color-sage-dark: #4a634a;
 }
 
+:root {
+  --neu-bg: #f2f2f2;
+  --neu-shadow-1: #d9d9d9;
+  --neu-shadow-2: #ffffff;
+}
+
+.dark {
+  --neu-bg: #1a1c1a;
+  --neu-shadow-1: #121312;
+  --neu-shadow-2: #222522;
+}
+
 @layer utilities {
   .neumorphic-flat {
-    background: #f2f2f2;
-    box-shadow: 8px 8px 16px #d9d9d9, -8px -8px 16px #ffffff;
+    background: var(--neu-bg);
+    box-shadow: 8px 8px 16px var(--neu-shadow-1), -8px -8px 16px var(--neu-shadow-2);
   }
-  
+
   .neumorphic-inset {
-    background: #f2f2f2;
-    box-shadow: inset 8px 8px 16px #d9d9d9, inset -8px -8px 16px #ffffff;
+    background: var(--neu-bg);
+    box-shadow: inset 8px 8px 16px var(--neu-shadow-1), inset -8px -8px 16px var(--neu-shadow-2);
   }
 
   .neumorphic-button {
-    background: #f2f2f2;
-    box-shadow: 4px 4px 8px #d9d9d9, -4px -4px 8px #ffffff;
+    background: var(--neu-bg);
+    box-shadow: 4px 4px 8px var(--neu-shadow-1), -4px -4px 8px var(--neu-shadow-2);
     transition: all 0.2s ease;
   }
 
   .neumorphic-button:active {
-    box-shadow: inset 4px 4px 8px #d9d9d9, inset -4px -4px 8px #ffffff;
+    box-shadow: inset 4px 4px 8px var(--neu-shadow-1), inset -4px -4px 8px var(--neu-shadow-2);
   }
 
   .neumorphic-card {
-    background: #f2f2f2;
-    box-shadow: 12px 12px 24px #d9d9d9, -12px -12px 24px #ffffff;
+    background: var(--neu-bg);
+    box-shadow: 12px 12px 24px var(--neu-shadow-1), -12px -12px 24px var(--neu-shadow-2);
   }
 }
