@@ -26,7 +26,8 @@ import {
   Youtube,
   X,
   Sun,
-  Moon
+  Moon,
+  Menu
 } from 'lucide-react';
 
 const diseases = [
@@ -63,6 +64,7 @@ export default function ClinicLanding() {
   const [currentTestimonial, setCurrentTestimonial] = React.useState(0);
   const [mounted, setMounted] = React.useState(false);
   const { theme, setTheme } = useTheme();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   React.useEffect(() => setMounted(true), []);
 
@@ -78,7 +80,7 @@ export default function ClinicLanding() {
   };
 
   return (
-    <div className="min-h-screen pb-20 bg-[#f2f2f2] dark:bg-[#1a1c1a] transition-colors duration-300">
+    <div className="min-h-screen pb-20 bg-[#f2f2f2] dark:bg-[#1a1c1a] transition-colors duration-300 overflow-x-hidden">
       <div className="text-[#2c3e2c] dark:text-[#e0e8e0]">
         {/* Navbar */}
         <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-8">
@@ -101,21 +103,44 @@ export default function ClinicLanding() {
               <a href="#contact" className="opacity-60 hover:opacity-100 transition-opacity">Contact Us</a>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4">
               <button
                 onClick={() => setTheme(isDark ? 'light' : 'dark')}
-                className="w-10 h-10 rounded-full neumorphic-button flex items-center justify-center text-[#6b8e6b]"
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full neumorphic-button flex items-center justify-center text-[#6b8e6b]"
               >
-                {mounted ? (isDark ? <Sun size={18} /> : <Moon size={18} />) : <span className="w-4 h-4 rounded-full border-2 border-[#6b8e6b] border-t-transparent animate-spin"></span>}
+                {mounted ? (isDark ? <Sun size={16} className="md:w-[18px] md:h-[18px]" /> : <Moon size={16} className="md:w-[18px] md:h-[18px]" />) : <span className="w-4 h-4 rounded-full border-2 border-[#6b8e6b] border-t-transparent animate-spin"></span>}
               </button>
               <button
                 onClick={() => setShowAuthModal(true)}
-                className="px-6 py-2 rounded-full neumorphic-button text-[10px] font-bold uppercase tracking-widest text-[#2c3e2c] dark:text-[#e0e8e0]"
+                className="px-4 py-2 md:px-6 md:py-2 rounded-full neumorphic-button text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-[#2c3e2c] dark:text-[#e0e8e0] whitespace-nowrap"
               >
                 Log In | Sign Up
               </button>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden w-8 h-8 rounded-full neumorphic-button flex items-center justify-center text-[#6b8e6b]"
+              >
+                {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+              </button>
             </div>
           </div>
+
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="md:hidden absolute top-full left-6 right-6 mt-4 p-6 neumorphic-card rounded-3xl bg-[#f2f2f2]/95 dark:bg-[#1a1c1a]/95 backdrop-blur-xl border border-white/10 flex flex-col gap-6 text-[12px] font-bold uppercase tracking-widest text-[#2c3e2c] dark:text-[#e0e8e0]"
+              >
+                <a href="#home" onClick={() => setIsMobileMenuOpen(false)} className="opacity-80 hover:opacity-100 transition-opacity flex items-center gap-2"><Leaf size={14} className="text-[#6b8e6b]" /> Home</a>
+                <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="opacity-80 hover:opacity-100 transition-opacity">About Us</a>
+                <a href="#diseases" onClick={() => setIsMobileMenuOpen(false)} className="opacity-80 hover:opacity-100 transition-opacity">Diseases</a>
+                <a href="#testimonials" onClick={() => setIsMobileMenuOpen(false)} className="opacity-80 hover:opacity-100 transition-opacity">Testimonials</a>
+                <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="opacity-80 hover:opacity-100 transition-opacity">Contact Us</a>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </nav>
 
         {/* Hero Section */}
@@ -126,14 +151,14 @@ export default function ClinicLanding() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-6xl md:text-8xl font-black text-[#2c3e2c] dark:text-[#e0e8e0] leading-[0.95] mb-10 tracking-tighter">
+              <h2 className="text-5xl md:text-6xl lg:text-8xl font-black text-[#2c3e2c] dark:text-[#e0e8e0] leading-[0.95] mb-10 tracking-tighter">
                 Nature Has A <br />
                 Way of <br />
                 Living. <br />
                 Consult us <br />
                 Today!!!
               </h2>
-              <button className="px-10 py-4 bg-[#6b8e6b] text-white rounded-full font-bold uppercase tracking-widest shadow-2xl shadow-[#6b8e6b]/40 hover:bg-[#5a7a5a] transition-all transform hover:scale-105 active:scale-95">
+              <button className="px-8 py-4 md:px-10 bg-[#6b8e6b] text-[12px] md:text-base text-white rounded-full font-bold uppercase tracking-widest shadow-2xl shadow-[#6b8e6b]/40 hover:bg-[#5a7a5a] transition-all transform hover:scale-105 active:scale-95">
                 Book Appointment
               </button>
             </motion.div>
@@ -165,14 +190,14 @@ export default function ClinicLanding() {
         {/* About Section */}
         <section id="about" className="py-20 px-6">
           <div className="max-w-5xl mx-auto">
-            <div className="neumorphic-card rounded-[40px] p-12 flex flex-col md:flex-row items-center gap-12">
+            <div className="neumorphic-card rounded-[40px] p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 text-center md:text-left">
               <div className="flex-1">
                 <h3 className="text-2xl font-bold mb-6">Homoeopathy</h3>
                 <p className="text-sm leading-relaxed opacity-70">
                   Holistic health is a commons te hodel hemeopathic medicine and fmmmn naturremns tneetn growing health and noumal npectmoons stanrever our health. Homoorpathy icavtensitn and bateitic A sust ovonation or createving snnv practane of homeopathic medicine.
                 </p>
               </div>
-              <div className="w-64 h-64 rounded-full overflow-hidden border-8 border-[#f2f2f2] dark:border-[#1a1c1a] shadow-xl">
+              <div className="w-48 h-48 md:w-64 md:h-64 shrink-0 rounded-full overflow-hidden border-8 border-[#f2f2f2] dark:border-[#1a1c1a] shadow-xl">
                 <img
                   src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=500&auto=format&fit=crop"
                   alt="Medicine bottles"
@@ -186,8 +211,8 @@ export default function ClinicLanding() {
         {/* Diseases Grid */}
         <section id="diseases" className="py-20 px-6">
           <div className="max-w-7xl mx-auto text-center">
-            <h3 className="text-2xl font-bold mb-16">Homeopathic Treatment for Major Diseases</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8">
+            <h3 className="text-2xl font-bold mb-10 md:mb-16">Homeopathic Treatment for Major Diseases</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-8">
               {diseases.map((disease, idx) => (
                 <motion.div
                   key={idx}
@@ -228,16 +253,16 @@ export default function ClinicLanding() {
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className="neumorphic-card rounded-[40px] p-14 relative"
                   >
-                    <span className="absolute top-8 left-10 text-7xl text-[#6b8e6b]/15 font-serif leading-none select-none">“</span>
+                    <span className="absolute top-4 md:top-8 left-6 md:left-10 text-5xl md:text-7xl text-[#6b8e6b]/15 font-serif leading-none select-none">“</span>
                     <div className="relative z-10">
-                      <p className="text-xl italic mb-8 text-[#4a634a] dark:text-[#8fb38f] leading-relaxed font-medium">
+                      <p className="text-lg md:text-xl italic mb-6 md:mb-8 text-[#4a634a] dark:text-[#8fb38f] leading-relaxed font-medium">
                         {testimonials[currentTestimonial].text}
                       </p>
-                      <p className="font-bold text-base text-[#2c3e2c] dark:text-[#e0e8e0] tracking-wide">
+                      <p className="font-bold text-sm md:text-base text-[#2c3e2c] dark:text-[#e0e8e0] tracking-wide">
                         {testimonials[currentTestimonial].author}
                       </p>
                     </div>
-                    <span className="absolute bottom-4 right-10 text-7xl text-[#6b8e6b]/15 font-serif leading-none select-none">”</span>
+                    <span className="absolute bottom-2 md:bottom-4 right-6 md:right-10 text-5xl md:text-7xl text-[#6b8e6b]/15 font-serif leading-none select-none">”</span>
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -265,9 +290,9 @@ export default function ClinicLanding() {
         {/* Contact Us */}
         <section id="contact" className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="neumorphic-card rounded-[40px] p-12">
-              <h3 className="text-2xl font-bold mb-12">Contact Us</h3>
-              <div className="grid md:grid-cols-2 gap-16">
+            <div className="neumorphic-card rounded-[40px] p-8 md:p-12">
+              <h3 className="text-2xl font-bold mb-10 md:mb-12">Contact Us</h3>
+              <div className="grid md:grid-cols-2 gap-8 md:gap-16">
                 <div className="space-y-8">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl neumorphic-button flex items-center justify-center text-sage shrink-0">
@@ -296,11 +321,11 @@ export default function ClinicLanding() {
                 </div>
 
                 <div className="space-y-6">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input type="text" placeholder="Name" className="w-full px-6 py-4 rounded-xl neumorphic-inset text-sm outline-none" />
                     <input type="email" placeholder="Email" className="w-full px-6 py-4 rounded-xl neumorphic-inset text-sm outline-none" />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input type="text" placeholder="Contact No." className="w-full px-6 py-4 rounded-xl neumorphic-inset text-sm outline-none" />
                     <input type="text" placeholder="Contact No. (Alt)" className="w-full px-6 py-4 rounded-xl neumorphic-inset text-sm outline-none" />
                   </div>
@@ -317,9 +342,9 @@ export default function ClinicLanding() {
         </section>
 
         {/* Footer */}
-        <footer className="px-6">
+        <footer className="px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="neumorphic-card rounded-full px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="neumorphic-card rounded-[40px] md:rounded-full px-8 py-6 md:py-4 flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
                 <div className="w-32 h-12 rounded-lg neumorphic-inset overflow-hidden grayscale opacity-50">
                   <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=200&auto=format&fit=crop" alt="Map" className="w-full h-full object-cover" />
@@ -366,7 +391,7 @@ export default function ClinicLanding() {
                   stiffness: 300,
                   duration: 0.3
                 }}
-                className="relative w-full max-w-md neumorphic-card rounded-[40px] p-10 overflow-hidden"
+                className="relative w-full max-w-md neumorphic-card rounded-[40px] p-6 sm:p-10 overflow-hidden"
               >
                 <button
                   onClick={() => setShowAuthModal(false)}
